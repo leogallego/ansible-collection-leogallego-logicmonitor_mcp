@@ -1,7 +1,7 @@
 ---
 schemaVersion: 2.2.2
 metadata:
-  name: leogallego.logicmonitor_mcp-a9b3b073
+  name: leogallego.logicmonitor_mcp-a994a9a2
 components:
   - name: tooling-container
     container:

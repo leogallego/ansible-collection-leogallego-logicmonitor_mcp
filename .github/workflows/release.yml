@@ -1,18 +1,13 @@
 ---
-name: Publish to Ansible Galaxy
+name: Release leogallego.logicmonitor_mcp
 
-on:
-  push:
-    tags: ['[0-9]+.[0-9]+.[0-9]+']
-
+on: # yamllint disable-line rule:truthy
+  release:
+    types: [published]
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Build collection tarball
-        run: ansible-galaxy collection build . --force
-
-      - name: Publish to Galaxy
-        run: ansible-galaxy collection publish *.tar.gz --api-key ${{ secrets.GALAXY_API_KEY }}
+  release_automation_hub:
+    uses: ansible/ansible-content-actions/.github/workflows/release_galaxy.yaml@main
+    with:
+      environment: release
+    secrets:
+      ansible_galaxy_api_key: ${{ secrets.ANSIBLE_GALAXY_API_KEY }}

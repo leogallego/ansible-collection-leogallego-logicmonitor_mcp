@@ -1,0 +1,18 @@
+---
+name: Publish to Ansible Galaxy
+
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build collection tarball
+        run: ansible-galaxy collection build . --force
+
+      - name: Publish to Galaxy
+        run: ansible-galaxy collection publish *.tar.gz --api-key ${{ secrets.GALAXY_API_KEY }}
